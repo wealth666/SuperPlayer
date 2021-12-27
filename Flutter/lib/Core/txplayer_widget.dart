@@ -1,10 +1,9 @@
-// @dart = 2.7
 part of SuperPlayer;
 
 class TXPlayerVideo extends StatefulWidget {
   final TXPlayerController controller;
 
-  TXPlayerVideo({@required this.controller}):assert(controller != null);
+  TXPlayerVideo({required this.controller});
 
   @override
   _TXPlayerVideoState createState() => _TXPlayerVideoState();

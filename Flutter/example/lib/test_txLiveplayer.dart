@@ -14,7 +14,7 @@ class _TestTXPLivelayerState extends State<TestTXLivePlayer> {
   TXLivePlayerController _controller;
   double _aspectRatio = 0;
   double _progress = 0.0;
-  String _url = "http://liteavapp.qcloud.com/live/liteavdemoplayerstreamid_demo1080p.flv";
+  String _url = "rtmp://tx1.sanshimingli.com/kisslive/UeeeAir8IrxP?txSecret=63d305b1ba4cea34e6268c20465eab0b&txTime=61C5B5E2";
   bool _isStop = true;
 
   Future<void> init() async {
@@ -58,11 +58,11 @@ class _TestTXPLivelayerState extends State<TestTXLivePlayer> {
 
     await SuperPlayerPlugin.setConsoleEnabled(true);
     await _controller.initialize();
-//    await _controller.setRenderRotation(2);
+//   await _controller.setRenderRotation(2);
 //    await _controller.setLiveMode(LiveMode.Speed);
 //    await _controller.play("http://liteavapp.qcloud.com/live/liteavdemoplayerstreamid.flv", playType: TXPlayType.LIVE_FLV);
     //安卓需要设置hls格式才可正常播放
-    await _controller.play(_url, playType: TXPlayType.LIVE_FLV);
+    await _controller.play(_url, playType: TXPlayType.LIVE_RTMP);
 //    await _controller.play("http://liteavapp.qcloud.com/live/liteavdemoplayerstreamid.flv", playType: TXPlayType.VOD_HLS);
   }
 

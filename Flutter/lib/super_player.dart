@@ -1,4 +1,3 @@
-// @dart = 2.7
 library SuperPlayer;
 
 import 'dart:async';

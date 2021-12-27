@@ -1,4 +1,3 @@
-// @dart = 2.7
 part of SuperPlayer;
 
 typedef void SuperPlatformViewCreatedCallback(SuperPlayerPlatformViewController controller);
@@ -17,7 +16,7 @@ class SuperPlayerVideo extends StatefulWidget {
   //final bool isLockScreen;原生实现问题，暂不支持
   // final bool disableGesture;
   // final bool loop;
-  final SuperPlatformViewCreatedCallback onCreated;
+  final SuperPlatformViewCreatedCallback? onCreated;
   //final bool isFullScreen;原生实现问题，暂不支持
 
   SuperPlayerVideo({this.onCreated});
@@ -37,7 +36,7 @@ class _SuperPlayerVideoState extends State<SuperPlayerVideo> {
       return;
     }
     SuperPlayerPlatformViewController vc = new SuperPlayerPlatformViewController.init(id);
-    widget.onCreated(vc);
+    widget.onCreated!(vc);
   }
 
   Widget getPlatformView() {

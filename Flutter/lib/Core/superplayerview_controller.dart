@@ -1,9 +1,8 @@
-// @dart = 2.7
 part of SuperPlayer;
 
 class SuperPlayerPlatformViewController {
-  MethodChannel _channel;
-  StreamSubscription _eventSubscription;
+  late MethodChannel _channel;
+  late StreamSubscription _eventSubscription;
   final StreamController<Map<dynamic, dynamic>> _eventStreamController =
   StreamController.broadcast();
   Stream<Map<dynamic, dynamic>> get onPlayerEventBroadcast => _eventStreamController.stream;
@@ -38,8 +37,8 @@ class SuperPlayerPlatformViewController {
     return _channel.invokeMethod('playConfig', {"config": config.toJson()});
   }
 
-  Future<void> setIsAutoPlay({bool isAutoPlay}) async{
-    await _channel.invokeMethod("setIsAutoPlay", {"isAutoPlay": isAutoPlay ?? false});
+  Future<void> setIsAutoPlay({required bool isAutoPlay}) async{
+    await _channel.invokeMethod("setIsAutoPlay", {"isAutoPlay": isAutoPlay});
   }
 
   Future<void> setStartTime(double startTime) async {

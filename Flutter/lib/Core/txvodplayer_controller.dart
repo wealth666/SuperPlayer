@@ -1,4 +1,3 @@
-// @dart = 2.7
 part of SuperPlayer;
 
 class TXVodPlayerController extends ChangeNotifier implements ValueListenable<TXPlayerValue>, TXPlayerController {
@@ -8,13 +7,13 @@ class TXVodPlayerController extends ChangeNotifier implements ValueListenable<TX
   final Completer<int> _createTexture;
   bool _isDisposed = false;
   bool _isNeedDisposed = false;
-  MethodChannel _channel;
-  TXPlayerValue _value;
-  TXPlayerState _state;
+  late MethodChannel _channel;
+  late TXPlayerValue _value;
+  late TXPlayerState _state;
 
   TXPlayerState get playState => _state;
-  StreamSubscription _eventSubscription;
-  StreamSubscription _netSubscription;
+  late StreamSubscription? _eventSubscription;
+  late StreamSubscription _netSubscription;
 
   final StreamController<TXPlayerState> _stateStreamController =
   StreamController.broadcast();
@@ -147,20 +146,20 @@ class TXVodPlayerController extends ChangeNotifier implements ValueListenable<TX
     return _createTexture.future;
   }
 
-  Future<void> initialize({bool onlyAudio}) async{
-    if(_isNeedDisposed) return false;
+  Future<void> initialize({bool onlyAudio= false}) async{
+    if(_isNeedDisposed) return;
     await _initPlayer.future;
     final textureId = await _channel.invokeMethod("init", {
-      "onlyAudio": onlyAudio ?? false,
+      "onlyAudio": onlyAudio,
     });
     _createTexture.complete(textureId);
     _changeState(TXPlayerState.paused);
   }
 
-  Future<void> setIsAutoPlay({bool isAutoPlay}) async{
-    if(_isNeedDisposed) return false;
+  Future<void> setIsAutoPlay({bool isAutoPlay = false}) async{
+    if(_isNeedDisposed) return;
     await _initPlayer.future;
-    await _channel.invokeMethod("setIsAutoPlay", {"isAutoPlay": isAutoPlay ?? false});
+    await _channel.invokeMethod("setIsAutoPlay", {"isAutoPlay": isAutoPlay});
   }
 
   Future<bool> stop({bool isNeedClear = true}) async {
@@ -214,10 +213,10 @@ class TXVodPlayerController extends ChangeNotifier implements ValueListenable<TX
     await _channel.invokeMethod("setRate", {"rate": rate});
   }
 
-  Future<List> getSupportedBitrates() async {
+  Future<List?> getSupportedBitrates() async {
     if(_isNeedDisposed) return [];
     await _initPlayer.future;
-    return _channel.invokeMethod("getSupportedBitrates");
+    return _channel.invokeMethod<List>("getSupportedBitrates");
   }
 
   Future<void> setBitrateIndex(int index) async {
@@ -259,7 +258,7 @@ class TXVodPlayerController extends ChangeNotifier implements ValueListenable<TX
   void dispose() async{
     _isNeedDisposed = true;
     if(!_isDisposed){
-      await _eventSubscription.cancel();
+      await _eventSubscription?.cancel();
       _eventSubscription = null;
 
       await _release();

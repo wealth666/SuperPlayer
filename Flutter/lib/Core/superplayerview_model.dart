@@ -1,4 +1,3 @@
-// @dart = 2.7
 part of SuperPlayer;
 
 class SuperPlayerViewModel {
@@ -6,7 +5,7 @@ class SuperPlayerViewModel {
   String videoURL = "";
   List<SuperPlayerUrl> multiVideoURLs = [];
   int defaultPlayIndex = 0;
-  SuperPlayerVideoId videoId;
+  late SuperPlayerVideoId? videoId;
   String title = "";
   String coverUrl = "";//flutter页面显示，转json时不需要传给播放器
   int duration = 0;//flutter页面显示，转json时不需要传给播放器
@@ -25,10 +24,10 @@ class SuperPlayerViewModel {
     json["title"] = title;
     json["videoURL"] = videoURL;
     json["defaultPlayIndex"] = defaultPlayIndex;
-    if (videoId != null && videoId.fileId.isNotEmpty) {
+    if (videoId != null && videoId!.fileId.isNotEmpty) {
       json["videoId"] = {
-        "fileId":videoId.fileId,
-        "psign":videoId.psign
+        "fileId":videoId!.fileId,
+        "psign":videoId!.psign
       };
     }
 
