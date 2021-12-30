@@ -14,7 +14,7 @@ class SuperPlayerPlugin {
   }
 
   static Future<int?> createVodPlayer() async{
-    return await _channel.invokeMethod('createVodPlayer');
+    return await _channel.invokeMethod('createVodPlayer')!;
   }
 
   static Future<int?> setConsoleEnabled(bool enabled) async{

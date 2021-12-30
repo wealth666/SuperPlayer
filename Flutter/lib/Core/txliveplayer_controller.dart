@@ -5,7 +5,7 @@ class TXLivePlayerController extends ChangeNotifier
   int _playerId = -1;
 
   late Completer<int> _initPlayer;
-  late  Completer<int> _createTexture;
+  late Completer<int> _createTexture;
   bool _isDisposed = false;
   bool _isNeedDisposed = false;
   late MethodChannel _channel;
@@ -42,7 +42,7 @@ class TXLivePlayerController extends ChangeNotifier
   }
 
   Future<void> _create() async {
-    _playerId = await SuperPlayerPlugin.createLivePlayer();
+    _playerId = await SuperPlayerPlugin.createLivePlayer() ?? -1;
     _channel = MethodChannel("cloud.tencent.com/txliveplayer/$_playerId");
     _eventSubscription =
         EventChannel("cloud.tencent.com/txliveplayer/event/$_playerId")
@@ -149,8 +149,7 @@ class TXLivePlayerController extends ChangeNotifier
   Future<void> setIsAutoPlay({bool isAutoPlay = false}) async {
     if (_isNeedDisposed) return;
     await _initPlayer.future;
-    await _channel
-        .invokeMethod("setIsAutoPlay", {"isAutoPlay": isAutoPlay});
+    await _channel.invokeMethod("setIsAutoPlay", {"isAutoPlay": isAutoPlay});
   }
 
   Future<bool> stop({bool isNeedClear = true}) async {
