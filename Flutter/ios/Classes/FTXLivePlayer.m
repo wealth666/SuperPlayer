@@ -217,7 +217,7 @@ static const int uninitialized = -1;
         //自动模式
         config.bAutoAdjustCacheTime   = YES;
         config.minAutoAdjustCacheTime = 1;
-        config.maxAutoAdjustCacheTime = 5;
+        config.maxAutoAdjustCacheTime = 3;
     }else if(type == 1){
         //极速模式
         config.bAutoAdjustCacheTime   = YES;

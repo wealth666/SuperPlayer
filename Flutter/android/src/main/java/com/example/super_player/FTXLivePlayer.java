@@ -299,7 +299,7 @@ public class FTXLivePlayer extends FTXBasePlayer implements MethodChannel.Method
             if (type == 0) {
                 //自动模式
                 config.setAutoAdjustCacheTime(true);
-                config.setMinAutoAdjustCacheTime(2);
+                config.setMinAutoAdjustCacheTime(1);
                 config.setMaxAutoAdjustCacheTime(3);
             }else if(type == 1){
                 //极速模式
